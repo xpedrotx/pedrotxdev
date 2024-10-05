@@ -17,6 +17,7 @@
             margin: 0;
             background-color: #ffffff; /* Modo claro */
             transition: background-color 0.3s, color 0.3s;
+            position: relative; /* Para posicionar o rodapé */
         }
         .container {
             background-color: #f1f1f1;
@@ -86,6 +87,19 @@
         input[type="submit"].dark-mode:hover {
             background-color: #627d8b;
         }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            position: absolute; /* Para ficar sempre na parte inferior */
+            bottom: 0; /* Posiciona o rodapé na parte inferior */
+        }
+        p {
+            font-size: 14px; 
+            font-weight: 400; 
+            color: #aaaaaa; 
+        }
     </style>
 </head>
 <body>
@@ -137,5 +151,8 @@
             }
         }
     </script>
+    <footer>
+        <p>&copy; Copyright 2023-2024 Pedrotx. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
