@@ -13,10 +13,28 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #ffffff; /* Modo claro */
+            transition: background-color 0.3s, color 0.3s;
         }
         h1 {
-            color: #2c3e50;
+            color: #2c3e50; /* Cor padrão do título */
             text-align: center;
+            position: relative;
+        }
+        .toggle-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .toggle-button:hover {
+            background-color: #34495e;
         }
         .aba {
             overflow: hidden;
@@ -54,7 +72,7 @@
         input[type="text"],
         input[type="number"],
         input[type="date"] {
-            width: 100%;
+            width: 90%; /* Diminuído para 90% */
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -81,10 +99,50 @@
             font-size: 0.8em;
             margin-top: 2px;
         }
+        footer {
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+        p {
+            font-size: 14px; 
+            font-weight: 400; 
+            color: #aaaaaa; 
+        }
+
+        /* Estilo do modo escuro */
+        body.dark-mode {
+            background-color: #2c3e50;
+            color: #ffffff;
+        }
+        h1.dark-mode {
+            color: #ffffff; /* Cor do título no modo escuro */
+        }
+        .aba.dark-mode {
+            background-color: #3a4b5a;
+        }
+        .conteudo-aba.dark-mode {
+            background-color: #3a4b5a;
+            border: 1px solid #5c6b76;
+        }
+        input[type="submit"].dark-mode {
+            background-color: #5a6e7d;
+        }
+        input[type="submit"].dark-mode:hover {
+            background-color: #627d8b;
+        }
+        input:disabled.dark-mode {
+            background-color: #4a4a4a;
+            color: #999;
+        }
+        .aviso-entrada.dark-mode {
+            color: #ffffff; /* Alterado para branco no modo escuro */
+        }
     </style>
 </head>
 <body>
-    <h1>🐟 Sistema de Biometria para Peixes 🐟</h1>
+    <h1 class="title">🐟 Sistema de Biometria para Peixes 🐟</h1>
+    <button class="toggle-button" onclick="toggleDarkMode()">Modo Escuro</button>
 
     <div class="aba">
         <button class="botoes-aba" onclick="abrirAba(event, 'dadosIniciais')">Dados Iniciais</button>
@@ -159,26 +217,28 @@
             <input type="number" id="ganhoBiomassaAcumulado" name="ganhoBiomassaAcumulado" step="0.01" disabled>
             <div class="aviso-entrada">Campo calculado automaticamente. Não pode ser editado.</div>
 
-            <label for="racaoPeriodo">Ração do Período (kg):</label>
-            <input type="number" id="racaoPeriodo" name="racaoPeriodo" step="0.01" required>
-
-            <label for="conversaoPeriodo">Conversão do Período:</label>
-            <input type="number" id="conversaoPeriodo" name="conversaoPeriodo" step="0.01" disabled>
-            <div class="aviso-entrada">Campo calculado automaticamente. Não pode ser editado.</div>
-
-            <label for="racaoAcumulada">Ração Acumulada (kg):</label>
-            <input type="number" id="racaoAcumulada" name="racaoAcumulada" step="0.01" disabled>
-            <div class="aviso-entrada">Campo calculado automaticamente. Não pode ser editado.</div>
-
-            <label for="conversaoAcumulada">Conversão Acumulada:</label>
-            <input type="number" id="conversaoAcumulada" name="conversaoAcumulada" step="0.01" disabled>
-            <div class="aviso-entrada">Campo calculado automaticamente. Não pode ser editado.</div>
-
             <input type="submit" value="Salvar Dados Diários">
         </form>
     </div>
 
     <script>
+        // Função para alternar entre o modo claro e escuro
+        function toggleDarkMode() {
+            const body = document.body;
+            const toggleButton = document.querySelector('.toggle-button');
+            const title = document.querySelector('.title');
+            const avisosEntrada = document.querySelectorAll('.aviso-entrada');
+
+            body.classList.toggle('dark-mode');
+            title.classList.toggle('dark-mode');
+            toggleButton.innerText = body.classList.contains('dark-mode') ? 'Modo Claro' : 'Modo Escuro';
+
+            // Altera a classe para os avisos de entrada
+            avisosEntrada.forEach(aviso => {
+                aviso.classList.toggle('dark-mode');
+            });
+        }
+
         function abrirAba(evento, nomeAba) {
             var i, conteudoAba, botoesAba;
             conteudoAba = document.getElementsByClassName("conteudo-aba");
